@@ -3,31 +3,24 @@ package hello.hellospring.service;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+//통합 테스트 개념
+@SpringBootTest // 스프링 컨테이너와 함께 테스트를 실행한다.
+@Transactional // 테스트 케이스에 있으면! 테스트 시작 전에 트랜잭션을 시작하고,테스트 완료 후에 항상 롤백한다. 이렇게 하면 DB에 데이터가 남지 않으므로 다음 테스트에 영향을 주지 않는다.
+class MemberServiceIntegrationTest {
 
-// 단위 테스트 개념  순수 단위 테스트가 아주 좋은 것이다. 스프링에 올려서 하는 테스트는 그다지 않좋다.
-class MemberServiceTest {
+    @Autowired MemberService memberService;
+    @Autowired
+    MemberRepository memberRepository;
 
-    MemberService memberService;
-    MemoryMemberRepository memberRepository;
-
-    // 각 테스트 실행 전에 호출되는 어노테이션 테스트가 서로 영향이 없도록 항상 새로운 객체를 생성하고, 의존관계도 새로 맺어준다.
-    @BeforeEach
-    public void beforeEach() {
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository);
-    }
-
-    @AfterEach
-    public void afterEach() {
-        memberRepository.clearStore();
-    }
     @Test
     void 회원가입() {
         // given
@@ -53,12 +46,6 @@ class MemberServiceTest {
 
         memberService.join(member1);
         assertThrows(IllegalStateException.class, () -> memberService.join(member2));
-//        try {
-//            memberService.join(member2);
-//            fail();
-//        }catch (IllegalStateException e){
-//            assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-//        }
 
         //then
     }
