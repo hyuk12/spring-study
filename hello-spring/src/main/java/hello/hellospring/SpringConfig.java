@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
+// 어떤 서비스로 진행을 할지 정해준다 bean을 이용해서
 @Configuration
 public class SpringConfig  {
 

@@ -52,6 +52,15 @@ class MemberServiceIntegrationTest {
 
     @Test
     void findMembers() {
+//        // given
+//        Member member1 = new Member();
+//        member1.setName("spring");
+//        Member member2 = new Member();
+//        member2.setName("spring2");
+//
+//        // when
+//        memberService.findMembers();
+
     }
 
     @Test
