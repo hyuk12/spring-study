@@ -52,6 +52,19 @@ class MemberServiceIntegrationTest {
 
     @Test
     void findMembers() {
+        // given
+        Member member1 = new Member();
+        member1.setName("spring");
+        Member member2 = new Member();
+        member2.setName("spring2");
+
+        // when
+        memberService.findMembers();
+
+    }
+
+    @Test
+    void findOne() {
 //        // given
 //        Member member1 = new Member();
 //        member1.setName("spring");
@@ -59,11 +72,7 @@ class MemberServiceIntegrationTest {
 //        member2.setName("spring2");
 //
 //        // when
-//        memberService.findMembers();
+//        memberService.findOne(memberService.join(member1));
 
-    }
-
-    @Test
-    void findOne() {
     }
 }
