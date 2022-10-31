@@ -6,4 +6,3 @@ create table member
     primary key (id)
 );
 
-savepoint 
