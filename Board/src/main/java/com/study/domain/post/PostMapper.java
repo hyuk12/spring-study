@@ -35,6 +35,7 @@ public interface PostMapper {
 
     /**
      * 게시글 리스트 조회
+     *
      * @param params - search conditions
      * @return 게시글 리스트
      */
