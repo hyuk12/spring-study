@@ -15,7 +15,8 @@ public class OrderServiceImpl implements OrderService{
     private final MemberRepository memberRepository ;
     private final DiscountPolicy discountPolicy ;
 
-    @Autowired
+    // 생성자가 하나만 있으면 @Autowired 를 생략해도 가능하다 .스프링 빈으로 등록되어 있을 때
+
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
@@ -24,7 +25,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         Member member = memberRepository.findById(memberId); // 레파지토리에서 멤버의 아이디 값을 찾는다
-        int discountPrice = discountPolicy.discount(member, itemPrice); // 멤버의 정보와 아이템 가격을 받아서 디스카운트 실행한 값을 discountPrice에 주입
+        int discountPrice = discountPolicy.discount(member, itemPrice); // 멤버의 정보와 아이템 가격을 받아서 디스카운트 실행한 값을 discountPrice 에 주입
 
         return new Order(memberId, itemName, itemPrice, discountPrice); // 최종 주문생성을 반환
     }
