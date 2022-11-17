@@ -13,7 +13,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-//@RequiredArgsConstructor // 필수값인 생성자들을 만들어준다. 고로 밑에 final 로 되어 있는 두개를 받는 생성자를 만들어준다 자동으로
+//@RequiredArgsConstructor
+//필수값인 생성자들을 만들어준다. 고로 밑에 final 로 되어 있는 두개를 받는 생성자를 만들어준다 자동으로
 public class OrderServiceImpl implements OrderService{
 
     private final MemberRepository memberRepository ;
@@ -35,7 +36,7 @@ public class OrderServiceImpl implements OrderService{
      * 우선순위
      * 프라이머리는 기본값처럼 동작하고 쿼리파이어는 매우 상세하게 동작하는데
      * 이런경우 어떤것이 우선권을 가져가는지는 자동보다는 수동이 넓은 범위 선택권보다는
-     * 좁은 ㅅ범위 선택권이 우선권이 높기 때문에 Qualifier 의 우선순위가 높다.
+     * 좁은 범위 선택권이 우선권이 높기 때문에 Qualifier 의 우선순위가 높다.
      */
 
 
@@ -47,7 +48,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         Member member = memberRepository.findById(memberId); // 레파지토리에서 멤버의 아이디 값을 찾는다
-        int discountPrice = discountPolicy.discount(member, itemPrice); // 멤버의 정보와 아이템 가격을 받아서 디스카운트 실행한 값을 discountPrice 에 주입
+        int discountPrice = discountPolicy.discount(member, itemPrice); // 멤버의 정보와 아이템 가격을 받아서 할인정책을 실행한 값을 discountPrice 에 주입
 
         return new Order(memberId, itemName, itemPrice, discountPrice); // 최종 주문생성을 반환
     }
